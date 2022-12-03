@@ -1,0 +1,57 @@
+cc_library(
+    name = "thrift",
+    srcs = glob(
+        ["**/*.cpp"],
+        exclude = [
+            "async/TEvhttpClientChannel.cpp",
+            "async/TEvhttpServer.cpp",
+            "protocol/THeaderProtocol.cpp",
+            "protocol/THeaderProtocol.cpp",
+            "qt/*.cpp",
+            "server/TNonblockingServer.cpp",
+            "transport/THeaderTransport.cpp",
+            "transport/THeaderTransport.cpp",
+            "transport/TNonblockingServerSocket.cpp",
+            "transport/TNonblockingSSLServerSocket.cpp",
+            "transport/TSSLServerSocket.cpp",
+            "transport/TSSLSocket.cpp",
+            "transport/TWebSocketServer.cpp",
+            "transport/TZlibTransport.cpp",
+            "windows/*.cpp",
+        ],
+    ),
+    hdrs = glob(
+        [
+            "**/*.h",
+            "protocol/*.tcc",
+        ],
+        exclude = [
+            "qt/*.h",
+            "transport/TSSLSocket.h",
+            "transport/TWebSocketServer.h",
+            "windows/*.h",
+        ],
+    ),
+    copts = ["-w"],
+    linkopts = select({
+        "@bazel_tools//src/conditions:darwin": ["-liconv"],
+        "//conditions:default": [],
+    }),
+    local_defines = select({
+        # In CMake build is set properly in generated config.h.
+        "@bazel_tools//src/conditions:linux": ["STRERROR_R_CHAR_P"],
+        "//conditions:default": [],
+    }),
+    strip_include_prefix = "/lib/cpp/src",
+    visibility = ["//visibility:public"],
+    deps = [
+        "@boost//:algorithm",
+        "@boost//:locale",
+        "@boost//:numeric_conversion",
+        "@boost//:scope_exit",
+        "@boost//:scoped_array",
+        "@boost//:shared_array",
+        "@boost//:tokenizer",
+        "@boost//:version",
+    ],
+)

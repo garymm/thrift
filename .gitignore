@@ -56,6 +56,8 @@ project.lock.json
 .vscode
 .vs
 
+/bazel-*
+
 /aclocal/libtool.m4
 /aclocal/lt*.m4
 /autoscan.log
@@ -118,7 +120,6 @@ project.lock.json
 /lib/cpp/Release-mt/
 /lib/cpp/src/thrift/qt/moc_TQTcpServer.cpp
 /lib/cpp/src/thrift/qt/moc__TQTcpServer.cpp
-/lib/cpp/src/thrift/config.h
 /lib/cpp/src/thrift/stamp-h2
 /lib/cpp/test/Benchmark
 /lib/cpp/test/AllProtocolsTest
